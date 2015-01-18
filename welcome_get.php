@@ -1,7 +1,7 @@
 <?php
 $textbook = mysql_real_escape_string($_POST['textbookname']);
-$username = mysql_real_escape_string($_POST['coursename']);
-$password = mysql_real_escape_string($_POST['professor']);
+$coursename = mysql_real_escape_string($_POST['coursename']);
+$professor = mysql_real_escape_string($_POST['professor']);
 $isbn = mysql_real_escape_string($_POST['isbn']);
 $usefulness = mysql_real_escape_string($_POST['response-rate1']);
 $value = mysql_real_escape_string($_POST['response-rate2']);
@@ -18,16 +18,17 @@ if ($conn->connect_error) {
 } 
 
 
-$sql = "SELECT ISBN FROM book";
-$result = $conn->query($sql);
+//$sql = "SELECT ISBN FROM book";
+//$result = $conn->query($sql);
 
-if ($result == $isbn) {
-	$sql = "UPDATE review SET courseName='coursename', ProfessorName= 'professor', UsefulnessRating= 'response-rate1', ValueRating= 'response-rate2', ClarityRating='response-rate3', Need='switch1', Comment='textarea' WHERE ($result==$isbn);" }
-	else {
+if (TRUE) {
+	//$sql = "UPDATE review SET courseName = $coursename, ProfessorName = $professor, UsefulnessRating = $usefulness, ValueRating = $value, ClarityRating = $clarity, Need= $switch1, Comment = $comment WHERE ($result==$isbn);" }
+	//else {
 	$sql = "INSERT INTO book (TextbookName, ISBN, CourseName, ProfessorName)
-	VALUES ('textbookname', 'isbn', 'coursename', 'professor')";
+	VALUES ($textbook, $isbn, $coursename, $professor)";
 	$sql = "INSERT INTO review (ISBN, UsefulnessRating, ValueRating, ClarityRating, Need, Comment)
-	VALUES ('textbookname', 'isbn', 'response-rate1', 'response-rate2', 'response-rate3', 'switch1', 'textarea')";
+	VALUES ($textbook, $isbn, $usefulness, $value, $clarity, $need, $comment)";
+}
 
 
 if ($conn->query($sql) === TRUE) {
